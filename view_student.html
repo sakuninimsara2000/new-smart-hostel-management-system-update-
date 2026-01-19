@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management - Smart Hostel</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="sidebar">
+        <div class="brand">
+            <img src="images/warden-photo.jpg" alt="Warden">
+            <div class="brand-text">
+                <h3>Warden Panel</h3>
+                <p>Smart Hostel</p>
+            </div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="index.html"><i class="fas fa-th-large"></i> Dashboard</a></li>
+            <li class="active"><a href="view_student.html"><i class="fas fa-users"></i> View Student</a></li>
+            <li><a href="attendance.html"><i class="fas fa-clipboard-check"></i> Attendance</a></li>
+            <li><a href="room_allocation.html"><i class="fas fa-door-open"></i> Room Allocation</a></li>
+            <li><a href="account.html"><i class="fas fa-user"></i> Account</a></li>
+            <li><a href="settings.html"><i class="fas fa-cog"></i> Setting</a></li>
+        </ul>
+        <div class="logout">
+            <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <header>
+            <div class="header-title">
+                <h1>Student Management</h1>
+                <p>View and manage all students</p>
+            </div>
+        </header>
+
+        <div class="stats-grid four-cols">
+            <div class="card blue"><div class="card-info"><span>Total Students</span><h2 id="card-total">0</h2></div></div>
+            <div class="card green"><div class="card-info"><span>In Hostel</span><h2 id="card-in">0</h2></div></div>
+            <div class="card red"><div class="card-info"><span>Out of Hostel</span><h2 id="card-out">0</h2></div></div>
+            <div class="card orange"><div class="card-info"><span>Late Returns</span><h2 id="card-late">0</h2></div></div>
+        </div>
+
+        <div class="filter-container">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="studentSearch" placeholder="Search by name, ID, or room...">
+            </div>
+           <button class="btn-export" id="exportBtn">
+    <i class="fas fa-download"></i> Export Data
+</button>
+        </div>
+
+        <div class="table-container">
+            <div class="table-header">
+                <h3>Students List (<span id="table-count">0</span>)</h3>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>STUDENT</th>
+                        <th>ROOM</th>
+                        <th>DEPARTMENT</th>
+                        <th>YEAR</th>
+                        <th>CONTACT</th>
+                        <th>STATUS</th>
+                        <th>ACTION</th>
+                    </tr>
+                </thead>
+                <tbody id="student-table-body">
+                    </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        async function loadStudentData() {
+            try {
+                const response = await fetch('/api/students');
+                const students = await response.json();
+
+                // 1. Update the 4 Cards
+                document.getElementById('card-total').innerText = students.length;
+                document.getElementById('card-in').innerText = students.filter(s => s.status === 'in').length;
+                document.getElementById('card-out').innerText = students.filter(s => s.status === 'out').length;
+                document.getElementById('card-late').innerText = students.filter(s => s.status === 'late').length;
+                document.getElementById('table-count').innerText = students.length;
+
+                // 2. Build the Table Rows
+                const tbody = document.getElementById('student-table-body');
+                tbody.innerHTML = ''; 
+
+                students.forEach(student => {
+                    tbody.innerHTML += `
+                        <tr>
+                            <td>
+                                <div class="user-info">
+                                    <div class="icon-circle" style="background:#f0f0f0; width:35px; height:35px; border-radius:50%; display:flex; align-items:center; justify-content:center;">
+                                        <i class="fas fa-user-graduate" style="color:#555"></i>
+                                    </div>
+                                    <span>${student.name} <br><small style="color:#888">ID: ${student.id}</small></span>
+                                </div>
+                            </td>
+                            <td>${student.room}</td>
+                            <td>${student.dept}</td>
+                            <td>${student.year}</td>
+                            <td class="contact-cell">${student.email}<br>${student.phone}</td>
+                            <td><span class="status-pill ${student.status}">${student.statusText}</span></td>
+                            <td><button onclick="alert('Viewing ID: ${student.id}')" class="view-link" style="border:none; background:none; color:#3498db; cursor:pointer; font-weight:bold;">View Details</button></td>
+                        </tr>
+                    `;
+                });
+
+            } catch (error) {
+                console.error("Connection Error:", error);
+            }
+        }
+
+        window.onload = loadStudentData;
+        // Function to convert the student list to a CSV file and download it
+async function exportToCSV() {
+    try {
+        // 1. Get the latest data from the server
+        const response = await fetch('/api/students');
+        const students = await response.json();
+
+        // 2. Define the CSV Header (the top row)
+        let csvContent = "Student ID,Name,Room,Department,Year,Email,Phone,Status\n";
+
+        // 3. Loop through students and add their data as rows
+        students.forEach(s => {
+            const row = `${s.id},${s.name},${s.room},${s.dept},${s.year},${s.email},${s.phone},${s.statusText}`;
+            csvContent += row + "\n";
+        });
+
+        // 4. Create the download link
+        const blob = new Blob([csvContent], { type: 'text/csv' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        
+        a.setAttribute('hidden', '');
+        a.setAttribute('href', url);
+        a.setAttribute('download', 'Hostel_Student_List.csv'); // Filename
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+
+        console.log("CSV Exported successfully!");
+    } catch (error) {
+        console.error("Export failed:", error);
+    }
+}
+
+// Attach the function to the button click
+document.getElementById('exportBtn').addEventListener('click', exportToCSV);
+
+    </script>
+</body>
+</html>

@@ -1,225 +1,181 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="en">
 <head>
-    <title>Smart Hostel Management System</title>
-    <link rel="stylesheet" href="landing.css">
-    <meta name="viewport" content="width=device-width , initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap"
-
-        rel="stylesheet">
-        <script type="module" src="landing.js"></script>
-
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warden Dashboard - Smart Hostel</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
-
 <body>
 
-    <header class="header">
-        <img src="Image_asserts/logo1.png" width="300px">
-        <!--<h3 class="logo">Smart Hostel Management system</h3>-->
-
-        <div class="menu" >
-            <a class="btn-login" href="#login">Login</a>  <!--connect login file hear-->
-            <a class="btn-signup" href="#signup">Signup</a> <!--connect signup file hear-->
+    <div class="sidebar">
+        <div class="brand">
+            <img src="images/warden-photo.jpg" alt="Warden Profile">
+            <div class="brand-text">
+                <h3>Warden Panel</h3>
+                <p>Smart Hostel</p>
+            </div>
         </div>
-    </header>
 
-    <!--hero section-->
-    <div class="hero_section">
+        <ul class="nav-links">
+            <li class="active">
+                <a href="index.html"><i class="fas fa-th-large"></i> Dashboard</a>
+            </li>
+            <li>
+                <a href="view_student.html"><i class="fas fa-users"></i> View Student</a>
+            </li>
+            <li>
+                <a href="attendance.html"><i class="fas fa-clipboard-check"></i> Attendance</a>
+            </li>
+            <li>
+                <a href="room_allocation.html"><i class="fas fa-door-open"></i> Room Allocation</a>
+            </li>
+            <li>
+                <a href="account.html"><i class="fas fa-user"></i> Account</a>
+            </li>
+            <li>
+                <a href="settings.html"><i class="fas fa-cog"></i> Setting</a>
+            </li>
+        </ul>
 
+        <div class="logout">
+            <a href="#"><i class="fas fa-sign-out-alt"></i> Logout</a>
+        </div>
+    </div>
 
-        <div class="hero-content">
-            <div class="right-content">
-                <h1 class="title">Smart Hostel Management Made Easy</h1>
+    <div class="main-content">
+        <header>
+            <div class="header-title">
+                <h2>Dashboard</h2>
+                <p>Welcome back, Warden</p>
+            </div>
+            <div class="header-info">
+                1/18/2026<br>02:45:00 PM
+            </div>
+        </header>
 
-                <div class="subtitle">
-                    A smart hostel management solution with secure student registration, biometric fingerprint access, and efficient room allocation for a safer and well-organized hostel experience.
+        <div class="stats-grid">
+            <div class="card blue">
+                <div class="card-info">
+                    <span>Total Students</span>
+                    <h2 id="total-students">0</h2>
+                    <p>Registered in hostel</p>
                 </div>
+                <div class="card-icon"><i class="fas fa-users"></i></div>
             </div>
 
-            <img class="left-content" src="Image_asserts/hero.png" alt="Hero Image">
-        </div>
-        <div class="hero_buttons" style="display: flex;">
-            <button class="btn-getstarted" id="getStartedBtn"><a href="#login">Get Started</a></button> <!--connect login file hear-->
-            <button class="btn-tablet" id="fingerprintBtn"><a href="fingerprintscan.html">Scan Fingerprint</a></button> <!--connect fingerprint scan file hear-->
-        </div>
-
-    </div>
-
-    <!--status -->
-    <div class="status">
-        <div class="status1">
-            <img class="status_img" src="Image_asserts/user.png">
-            <h4>500+</h4>
-            <p>Student Management</p>
-        </div>
-        <div class="status2">
-            <img class="status_img" src="Image_asserts/clock.png">
-            <h4>99.9%</h4>
-            <p>System Update</p>
-
-        </div>
-        <div class="status3">
-            <img class="status_img" src="Image_asserts/eye.png">
-            <h4>24/7</h4>
-            <p>Realtime Monitoring</p>
-
-        </div>
-        <div class="status4">
-            <img class="status_img" src="Image_asserts/fingerprint.png">
-            <h4>100%</h4>
-            <p>Secure Access</p>
-        </div>
-
-    </div>
-
-    <!--System Features-->
-    <div class="features">
-
-            <!--Section 01-->
-            <div class=feature_section1>
-                    <h1 style="text-align: center; padding-bottom: 30px;">System Features</h1>
-                    <p style="text-align: center;">Four integrated modules designed to streamline every aspect of hostel management with cutting-edge technology and user-friendly interfaces.</p>
+            <div class="card green">
+                <div class="card-info">
+                    <span>In Hostel</span>
+                    <h2 id="in-hostel">0</h2>
+                    <p>Currently present</p>
+                </div>
+                <div class="card-icon"><i class="fas fa-home"></i></div>
             </div>
 
-             <!--section 02-->
-     <div class="feature_section2">
+            <div class="card red">
+                <div class="card-info">
+                    <span>Out of Hostel</span>
+                    <h2 id="out-hostel">0</h2>
+                    <p>Currently away</p>
+                </div>
+                <div class="card-icon"><i class="fas fa-sign-out-alt"></i></div>
+            </div>
 
+            <div class="card orange">
+                <div class="card-info">
+                    <span>Late Returns</span>
+                    <h2 id="late-returns">0</h2>
+                    <p>Needs approval</p>
+                </div>
+                <div class="card-icon"><i class="fas fa-clock"></i></div>
+            </div>
+
+            <div class="card purple">
+                <div class="card-info">
+                    <span>Total Rooms</span>
+                    <h2 id="total-rooms">0</h2>
+                    <p>Available rooms</p>
+                </div>
+                <div class="card-icon"><i class="fas fa-door-closed"></i></div>
+            </div>
+
+            <div class="card teal">
+                <div class="card-info">
+                    <span>Occupied Rooms</span>
+                    <h2 id="occupied-rooms">0</h2>
+                    <p><span id="vacant-rooms">0</span> vacant</p>
+                </div>
+                <div class="card-icon"><i class="fas fa-bed"></i></div>
+            </div>
+        </div>
+
+        <div class="activity-section">
+            <div class="activity-header">
+                <h3>Recent Activity</h3>
+                <a href="#">View All</a>
+            </div>
+            
+            <div id="activity-list">
+                <p style="padding: 20px;">Loading recent logs...</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        async function updateDashboard() {
+            try {
+                // 1. Fetch JSON data from our Node.js API
+                const response = await fetch('/api/stats');
+                const data = await response.json();
+                
+                // 2. Update Card Numbers
+                document.getElementById('total-students').innerText = data.stats.totalStudents;
+                document.getElementById('in-hostel').innerText = data.stats.inHostel;
+                document.getElementById('out-hostel').innerText = data.stats.outOfHostel;
+                document.getElementById('late-returns').innerText = data.stats.lateReturns;
+                document.getElementById('total-rooms').innerText = data.stats.totalRooms;
+                document.getElementById('occupied-rooms').innerText = data.stats.occupiedRooms;
+
+                // 3. Dynamic Vacancy Calculation
+                document.getElementById('vacant-rooms').innerText = 
+                    data.stats.totalRooms - data.stats.occupiedRooms;
+
+                // 4. Build the Activity List
+                const container = document.getElementById('activity-list');
+                container.innerHTML = ''; // Clear loading message
+
+                data.recentActivity.forEach(item => {
+                    const isCheckIn = item.action === "Checked In";
+                    const iconColor = isCheckIn ? "green-bg" : "orange-bg";
+                    const iconDir = isCheckIn ? "fa-arrow-right" : "fa-arrow-left";
+                    const badge = item.status === "Present" ? "green-badge" : "blue-badge";
+
+                    container.innerHTML += `
+                        <div class="activity-item">
+                            <div class="activity-left">
+                                <div class="icon-circle ${iconColor}"><i class="fas ${iconDir}"></i></div>
+                                <div>
+                                    <strong>${item.name}</strong>
+                                    <p>${item.action} • ${item.reason} <br> ${item.time}</p>
+                                </div>
+                            </div>
+                            <span class="status-badge ${badge}">${item.status}</span>
+                        </div>
+                    `;
+                });
+                
+                console.log("Dashboard Updated: Connection to Backend Success!");
+            } catch (error) {
+                console.error("Dashboard Error:", error);
+            }
+        }
+
+        // Initialize dashboard on load
+        window.onload = updateDashboard;
         
-            <img src="Image_asserts/feature.jpeg" alt="Feature Image" class="feature-image">
-        
-
-
-         <div class="feature-list">
-            <div class="feature">
-                <img src="Image_asserts/feature1.png">
-                <div class="feature_details">
-                    <h4>Smart Attendance</h4>
-                    <p>Fingerprint-based attendance ensures accurate student identification,
-reduces unauthorized access, and maintains reliable attendance records 
-automatically.</p>
-                </div>
-            </div>
-            <div class="feature">
-                <img src="Image_asserts/feature2.png">
-                <div class="feature_details">
-                    <h4>Real-time Monitoring</h4>
-                    <p>Track student check-ins, checkouts, and movements instantly
- with live dashboard updates and automated alerts.</p>
-                </div>
-            </div>
-            <div class="feature">
-                <img src="Image_asserts/feature3.png">
-               <div class="feature_details">
-                    <h4>Student Registration</h4>
-                    <p>Supports pre-registration, post-registration, and fingerprint enrollment
- for secure student management.</p>
-                </div>
-            </div>
-            <div class="feature">
-                <img src="Image_asserts/feature4.png">
-               <div class="feature_details">
-                    <h4>Room Allocations</h4>
-                    <p>Organized room assignment based on availability to ensure proper
- accommodation management.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-
-    <div class="mannual">
-
-        <div class="mannual-section1">
-            <h1>How System Works</h1>
-            <p>Simple Steps to transform university hostel management experience </p>
-        </div>
-
-        <div class="mannual-section2">
-
-            <div class="guides">
-                    <img class="guide-icon" src="Image_asserts/guide1.png">
-                    <h4>Student Guide</h4>
-                    <ul>
-                        <li>Login with your  ID  and password</li>
-                        <li>Check-in and check-out using Fingerprint  scanner</li>
-                        <li>View your room allocation and roommate details</li>
-                        <li>View your attendance history and records</li>
-                        <li>Update your profile and contact information</li>
-                    </ul>
-            </div>
-
-            <div class="guides">
-                    <img class="guide-icon" src="Image_asserts/guide2.png">
-                    <h4>Warden Guide</h4>
-                    <ul>
-                        <li>Access comprehensive dashboard with real-time data</li>
-                        <li>Monitor student attendance and late returns</li>
-                        <li>Manage room allocations and occupancy</li>
-                        <li>Generate attendance and occupancy reports</li>
-                        <li>Configure system settings</li>
-                    </ul>
-            </div>
-            <div class="guides">
-                    <img class="guide-icon"src="Image_asserts/guide3.png">
-                    <h4>Admin Guide</h4>
-                    <ul>
-                        <li>Manage user accounts and access permissions</li>
-                        <li>Configure system-wide settings and policies</li>
-                        <li>Monitor student performance and usage</li>
-                        <li>Generate comprehensive system reports</li>
-                        <li>Manage hostel facilities and resources</li>
-
-                    </ul>
-            </div>
-
-
-        </div>
-
-    </div>
-
-
-    <div class="footer">
-        <div class="footer-content">
-                <div class="footer-section1">
-                    <div class="footer-intro">
-                        <h3 class="footer-heading">Smarter Hostel</h3>
-                        <p style="line-height: 1.5;">Revolutionary hostel management system with fingerprint technology, real-time monitoring, and comprehensive administrative tools.</p>
-                        <div class="footer-icons">
-                            <img src="Image_asserts/Facebook.png">
-                            <img src="Image_asserts/Twitter.png">
-                            <img src="Image_asserts/Instagram.png">
-                        </div>
-                    </div>
-                    <div class=footer-right>
-                        <div class="footer-feature">
-                            <h3 class="footer-heading">Features</h3>
-                            <p style="size: 14px;">Fingerprint Attendance</p>
-                            <p>Real-time Monitoring</p>
-                            <p>Student Registration</p>
-                            <p>Room Allocations</p>
-                        </div>
-                        <div class="footer-support">
-                            <h3 class="footer-heading">Support</h3>
-                            
-                            <p>Contact us</p>
-                            <p>Training</p>
-                        </div>
-                    </div>
-                </div>
-            <hr>
-            <div class="footer-section2">
-                <p>©2025 University of Ruhuna . All rights reserved</p>
-                <div class="footer-links">
-                <p >Privacy & Policy</p>
-                <p >Terms & Condition</p>
-                </div>
-            </div>
-        </div>
-    </div>
+    </script>
 
 </body>
-
 </html>
